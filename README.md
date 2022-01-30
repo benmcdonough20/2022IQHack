@@ -1,4 +1,18 @@
 # QDB - CLI Quantum Benchmarking and Optimization Platform 
+## Contents
+- [QDB](#qdb---cli-quantum-benchmarking-and-optimization-platform)
+  * [Overview](#overview)
+  * [QDB Usage](#qdb-usage)
+    + [Dependencies](#dependencies)
+    + [Benchmarking Gate Fidelities](#benchmarking-gate-fidelities)
+    + [Decomposing and Evaluating Circuits](#decomposing-and-evaluating-circuits)
+    + [Comparing Quantum Circuits](#comparing-quantum-circuits)
+    + [qdb -h](#qdb--h)
+  * [Benchmarking the Starmon-5 Hardware](#benchmarking-the-starmon-5-hardware)
+    + [Measuring Gate Fidelities](#measuring-gate-fidelities)
+    + [Predicting Algorithm Success](#predicting-algorithm-success)
+  * [Personal Experiences](#personal-experiences)
+  * [Sources](#sources)
 ## Overview
 This project was designed to automate the process of obtaining a hardware error profile of a quantum computer with the purpose of evaluating models of different error correcting protocols. One of the most studied families of error correcting codes, the stabilizer codes, are based on parity checks which are realized with gates from the set of Clifford gates. In this project, we investigate how the topology and capacity to realize these gates on quantum hardware impacts the efficacy of an error correcting code. We benchmark the gate fidelity of the Starmon-5 quantum processor to calibrate a toy model for error propagation. 
 
@@ -29,7 +43,7 @@ qiskit_ignis==0.7.0
 quantuminspire==1.7.0
 ```
 
-### Benchmark Gate Fidelities
+### Benchmarking Gate Fidelities
 Use `./qdb bench --arch (architecture)` to populate extra/Starmon-5.csv or extra/Spin-2.csv with their respective gate fidelities. Note this process takes some time, and the files are preincluded with this repository.
 #### Examples
 ```
