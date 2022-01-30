@@ -1,1 +1,8 @@
-'OPENQASM 2.0;\ninclude "qelib1.inc";\nqreg q[5];\ncreg c[4];\nx q[0];\nx q[3];\nid q[1];\nid q[4];\n'
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[5];
+creg c[4];
+x q[0];
+x q[3];
+id q[1];
+id q[4];
