@@ -1,1 +1,10 @@
-'OPENQASM 2.0;\ninclude "qelib1.inc";\nqreg q[5];\ncreg c[4];\ncreg meas[5];\ncx q[0],q[2];\ncx q[1],q[2];\ncx q[3],q[2];\ncx q[4],q[2];\nbarrier q[0],q[1],q[2],q[3],q[4];\nmeasure q[0] -> meas[0];\nmeasure q[1] -> meas[1];\nmeasure q[2] -> meas[2];\nmeasure q[3] -> meas[3];\nmeasure q[4] -> meas[4];\n'
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[5];
+creg c[4];
+creg meas[5];
+cx q[0],q[2];
+cx q[1],q[2];
+cx q[3],q[2];
+cx q[4],q[2];
+barrier q[0],q[1],q[2],q[3],q[4];
