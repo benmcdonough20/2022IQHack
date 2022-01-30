@@ -1,26 +1,94 @@
-# QDB - Benchmarking and 
+# QDB - CLI Quantum Benchmarking and Optimization Platform 
 ## Overview
 This project was designed to automate the process of obtaining a hardware error profile of a quantum computer with the purpose of evaluating models of different error correcting protocols. One of the most studied families of error correcting codes, the stabilizer codes, are based on parity checks which are realized with gates from the set of Clifford gates. In this project, we investigate how the topology and capacity to realize these gates on quantum hardware impacts the efficacy of an error correcting code. We benchmark the gate fidelity of the Starmon-5 quantum processor to calibrate a toy model for error propagation. 
+
 To this end, we present QDB, a command-line debugging tool that integrates the process of both measuring gate fidelities, as well as deriving and theoretical performance of various circuits. We envision near-term quantum computer scientists using such a tool to automatically decide on a per-computer basis what codes and algorithms to use to reach tight error bounds. Future compilers, however, could use a similar procedure to obfuscate the error correction process, and maximize performance without any user intervention.
+
 To test the efficacy of our setup, we implement a range of QEC algorithms as well as their logical operations. We explicitly developed our algorithms such that we both respected the X-shaped nearest neighbor coupling, as well as utilized operations implemented on the Starmon-5. This allowed us to compare experimental error propagation with QDB’s success rate predictions. In total we constructed circuits for the following codes:
-Bit Flip Code
-Phase Flip Code
-[[4,2,2]] Code
-Steane [[5,1,3]] code
-Steane [[7,1,3]] code
-Shor Code
+- Bit Flip Code
+- Phase Flip Code
+- [[4,2,2]] Code
+- Steane [[5,1,3]] code
+- Steane [[7,1,3]] code
+- Shor Code
 
 Of these, the [4,2,2] code, and the bit- and phase-flip codes were benchmarked on the Quantum Inspire backend.
 
+## QDB Usage
+### Dependencies
+To install all dependencies automatically run:
+```
+pip install -r requirements.txt
+```
+QDB depends on the following packages:
+```
+coreapi==2.3.3
+numpy==1.22.0
+qiskit==0.34.1
+qiskit_ignis==0.7.0
+quantuminspire==1.7.0
+```
+
+### Benchmark Gate Fidelities
+Use `./qdb bench --arch (architecture)` to populate extra/Starmon-5.csv or extra/Spin-2.csv with their respective gate fidelities. Note this process takes some time, and the files are preincluded with this repository.
+#### Examples
+```
+./qdb bench --arch Starmon-5
+./qdb bench --arch Spin-2
+```
+#### Demonstration
+[![asciicast](https://asciinema.org/a/NtypYIcD0v2OiHpNW8jZY3Ucr.svg)](https://asciinema.org/a/NtypYIcD0v2OiHpNW8jZY3Ucr)
+
+### Decomposing and Evaluating Circuits
+Use `./qdb dec --arch (architecture) --circuit (circuit path)` to decompose a circuit into its composite gates, and calculate success probability based on previously measured gate fidelities. Also shows breakdown of each gate's overall error contribution.  
+#### Examples
+```
+./qdb dec --arch Starmon-5 --circuit qasm_files/bit_flip.qasm
+./qdb dec --arch Starmon-5 --circuit qasm_files/FourTwoTwo_Logical_X1.qasm
+```
+#### Demonstration
+[![asciicast](https://asciinema.org/a/LQzkPraU3u9F5fxeJGNBpbpvX.svg)](https://asciinema.org/a/LQzkPraU3u9F5fxeJGNBpbpvX)
+
+### Comparing Quantum Circuits
+Use `./qdb comp --arch (architecture) --circuit (circuit paths)` to compare multiple circuit's theoretical performance on a hardware platform. Ranks each by predicted success rate, and further displays total number of gates in each, and largest error channel. Useful with `--measure false` on simpler circuits where measurements form the largest error channel.
+
+#### Examples
+```
+./qdb comp --arch Starmon-5 --circuit qasm_files/bit_flip.qasm qasm_files/phase_flip.qasm
+./qdb comp --arch Starmon-5 --circuit qasm_files/FourTwoTwo_Logical_*
+
+```
+#### Demonstration
+[![asciicast](https://asciinema.org/a/taaNmgz1OEVZulX1TGXKGmCqB.svg)](https://asciinema.org/a/taaNmgz1OEVZulX1TGXKGmCqB)
+
+### qdb -h
+```
+usage: qdb [-h] [--circuit [CIRCUIT ...]] [--arch ARCH] [--measure MEASURE] mode
+
+QDB Quantum Circuit Debugger
+
+positional arguments:
+  mode                  (BENCHmark|DECompose|COMPare)
+
+options:
+  -h, --help            show this help message and exit
+  --circuit [CIRCUIT ...]
+                        Input Circuit .qasm
+  --arch ARCH           QC Architecture (Starmon-5|Spin-2)
+  --measure MEASURE     Include Measurement Error (True|False)
+ ```
+ 
+ ---
+ 
 ## Benchmarking the Starmon-5 Hardware
 
-### Obtaining Gate Fidelities
+### Measuring Gate Fidelities
 
 We utilized a variety of circuits and measurements to estimate the probability of successfully executing each quantum gate used on Starmon-5. We first performed a measurement of the 0 state to approximate the success of a single measurement, which turned out to be around 94.9%. This very simple circuit can be found below. 
 
 ![measurement](images/measurement.PNG)
 
-    We then proceeded to evaluate the performance of each basic single qubit gate. For the basic cases of the X, Y gates we used the circuits found below
+We then proceeded to evaluate the performance of each basic single qubit gate. For the basic cases of the X, Y gates we used the circuits found below
 
 ![X](images/X.PNG) ![Y](images/Y.PNG)
 
