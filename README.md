@@ -1,4 +1,18 @@
 # QDB - CLI Quantum Benchmarking and Optimization Platform 
+## Contents
+- [QDB](#qdb---cli-quantum-benchmarking-and-optimization-platform)
+  * [Overview](#overview)
+  * [QDB Usage](#qdb-usage)
+    + [Dependencies](#dependencies)
+    + [Benchmarking Gate Fidelities](#benchmarking-gate-fidelities)
+    + [Decomposing and Evaluating Circuits](#decomposing-and-evaluating-circuits)
+    + [Comparing Quantum Circuits](#comparing-quantum-circuits)
+    + [qdb -h](#qdb--h)
+  * [Benchmarking the Starmon-5 Hardware](#benchmarking-the-starmon-5-hardware)
+    + [Measuring Gate Fidelities](#measuring-gate-fidelities)
+    + [Predicting Algorithm Success](#predicting-algorithm-success)
+  * [Personal Experiences](#personal-experiences)
+  * [Sources](#sources)
 ## Overview
 This project was designed to automate the process of obtaining a hardware error profile of a quantum computer with the purpose of evaluating models of different error correcting protocols. One of the most studied families of error correcting codes, the stabilizer codes, are based on parity checks which are realized with gates from the set of Clifford gates. In this project, we investigate how the topology and capacity to realize these gates on quantum hardware impacts the efficacy of an error correcting code. We benchmark the gate fidelity of the Starmon-5 quantum processor to calibrate a toy model for error propagation. 
 
@@ -29,7 +43,7 @@ qiskit_ignis==0.7.0
 quantuminspire==1.7.0
 ```
 
-### Benchmark Gate Fidelities
+### Benchmarking Gate Fidelities
 Use `./qdb bench --arch (architecture)` to populate extra/Starmon-5.csv or extra/Spin-2.csv with their respective gate fidelities. Note this process takes some time, and the files are preincluded with this repository.
 #### Examples
 ```
@@ -99,7 +113,7 @@ We then proceeded to test the Hadamard Gate, using the simple circuit given belo
 ![Hadamard](images/H.PNG)
 
 
-Here, it is a bit trickier to calculate the error resulting from the Hadamard Gate. Since the measurement error is the same independently of whether the + state collapses to 0 or 1, the measurement error is not involved in the result, i.e., we are observing the quality of the Hadamard directly.  Thus, we assumed that if p percent (0<p<1) of our measurement collapses to the 0 state, then the fidelity of our Hadamard is 2p-1. This result proved to be a successful approximation.
+Here, it is a bit trickier to calculate the error resulting from the Hadamard Gate. Since the measurement error is the same independently of whether the + state collapses to 0 or 1, the measurement error is not involved in the result, i.e., we are observing the quality of the Hadamard directly.  Thus, we assumed that if p percent (0<p<1) of our measurement collapses to the 0 state, then the fidelity of our Hadamard is 2p-1. This result proved to be a successful approximation, and was further backed up by the hadamard's raw probability being roughly in line with the other single qubit gates.
 
 For the Z gate, we used the following circuit. 
 
@@ -149,14 +163,20 @@ Quantum Circuit 5: Steane [[7,1,3] Code
 Our hacking began yesterday morning in the blinding snow. We quickly abandoned our plans to meet in a building across campus and instead congregated in a dorm with a day’s worth of snacks to begin working in earnest. Our team had grown to five members over the past week. We started off in our own direction, each of us sifting through papers to try to pry open the inner workings of error correction and investigate its practical applications. Argy and Sofia began an intense conversation about error propagation while Ben and Wyatt muddled through different schemes for error detection and correction. We ate our cold meals that we had squirreled away, because the dining halls were all closed for the snow. Over the next hour, Alex started to type furiously, and then shared with us his plan to write a program to automate the process of error analysis. We rallied around this common goal for our project. We continued working intently, becoming increasingly bold in our usage of the Quantum Inspire backends, only stopping to sing Bohemian Rhapsody and for a brief game of Smash Bros. This hackathon has been the first for all of our members, and it has been a valuable learning experience.
 
 ## Sources
-https://www.nature.com/articles/ncomms7979
-https://services.math.duke.edu/DOmath/DOmath2018/hu-li-shapiro.pdf
-https://www.science.org/doi/10.1126/sciadv.1701074
-https://arxiv.org/pdf/1302.3428.pdf
-https://www.nature.com/articles/s41586-021-03588-y
-https://arxiv.org/abs/2104.01180
-Parthasarathy, K.. (2022). Lectures on quantum computation, quantum error correcting codes and information theory. 
-http://theory.caltech.edu/~preskill/ph229/notes/chap7.pdf
+Chen, Zijun, et al. “Exponential Suppression of Bit or Phase Errors with Cyclic Error Correction.” Nature, vol. 595, no. 7867, July 2021, pp. 383–87. www.nature.com, https://doi.org/10.1038/s41586-021-03588-y.
+
+Córcoles, A. D., et al. “Demonstration of a Quantum Error Detection Code Using a Square Lattice of Four Superconducting Qubits.” Nature Communications, vol. 6, no. 1, Apr. 2015, p. 6979. www.nature.com, https://doi.org/10.1038/ncomms7979.
+
+Hu, Atsushi, et al. Quantum Benchmarking on the [ [ 4 , 2 , 2 ] ] Code. 2018, https://www.semanticscholar.org/paper/Quantum-Benchmarking-on-the-%5B-%5B-4-%2C-2-%2C-2-%5D-%5D-Code-Hu-Li/a52bac24bd530673543db74acfb9f7447b51d28e.
+
+Linke, Norbert M., et al. “Fault-Tolerant Quantum Error Detection.” Science Advances, Oct. 2017. world, www.science.org, https://doi.org/10.1126/sciadv.1701074.
+
+Preskill, John. Lectures on Quantum Computation, Quantum Error Correcting Codes and Information Theory. http://theory.caltech.edu/~preskill/ph229/notes/chap7.pdf. Accessed 30 Jan. 2022.
+
+Satzinger, K. J., et al. “Realizing Topologically Ordered States on a Quantum Processor.” Science, vol. 374, no. 6572, Dec. 2021, pp. 1237–41. arXiv.org, https://doi.org/10.1126/science.abi8378.
+
+Terhal, Barbara M. “Quantum Error Correction for Quantum Memories.” Reviews of Modern Physics, vol. 87, no. 2, Apr. 2015, pp. 307–46. arXiv.org, https://doi.org/10.1103/RevModPhys.87.307.
+
 
 
 
