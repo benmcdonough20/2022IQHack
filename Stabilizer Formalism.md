@@ -20,11 +20,27 @@ The centralizer $\mathcal C(\mathcal S)$ is the set of all elements of $\mathcal
 
 ## Code distance
 
-THe code distance is the minimum weight of any logical operator
+The code distance is the minimum weight of any logical operator
 
 Commutativity of $\overline P$ with $\mathcal S$ implies that $|\overline \psi\rangle$ is in the mutual +1 eigenspace of $\mathcal S$ implies that $\overline P |\overline \psi \rangle$ is as well.
 
 ## Classical Linear Codes
 
 Take a linear code C encoding $k$ bits of information into an $n$ bit code space --> $n\times k$ generator matrix. 
+
+
+
+# Stabilizer Codes on the Starmon-5 Processor
+
+Running a quantum algorithm on noisy components will require some form of error mitigation. Error correction is employed in classical computation and  classical communication, but there are several barriers to carrying the techniques from the classical world directly into the quantum realm:
+
+1) The no-cloning theorem
+
+2. The coherent evolution of errors
+
+The no-cloning theorem is a foundational result that the laws of quantum mechanics prohibit a quantum state to be copied. The operators that govern the evolution of a quantum state, according to the theory, must be unitary. Suppose that we had access to a unitary $U$ which performed the desired copy operation. Then 
+$$
+|\Psi
+$$
+
 
