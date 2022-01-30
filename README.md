@@ -113,7 +113,7 @@ We then proceeded to test the Hadamard Gate, using the simple circuit given belo
 ![Hadamard](images/H.PNG)
 
 
-Here, it is a bit trickier to calculate the error resulting from the Hadamard Gate. Since the measurement error is the same independently of whether the + state collapses to 0 or 1, the measurement error is not involved in the result, i.e., we are observing the quality of the Hadamard directly.  Thus, we assumed that if p percent (0<p<1) of our measurement collapses to the 0 state, then the fidelity of our Hadamard is 2p-1. This result proved to be a successful approximation.
+Here, it is a bit trickier to calculate the error resulting from the Hadamard Gate. Since the measurement error is the same independently of whether the + state collapses to 0 or 1, the measurement error is not involved in the result, i.e., we are observing the quality of the Hadamard directly.  Thus, we assumed that if p percent (0<p<1) of our measurement collapses to the 0 state, then the fidelity of our Hadamard is 2p-1. This result proved to be a successful approximation, and was further backed up by the hadamard's raw probability being roughly in line with the other single qubit gates.
 
 For the Z gate, we used the following circuit. 
 
