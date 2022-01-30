@@ -17,10 +17,10 @@ from quantuminspire.credentials import save_account
 from qiskit import QuantumCircuit, assemble, Aer, execute
 from qiskit.circuit import QuantumRegister, ClassicalRegister, QuantumCircuit
 
-import extra/QI_authenticate
-from extra/fidelity_tests import *
+from qdb_extra import QI_authenticate
+from qdb_extra.fidelity_tests import *
 
-parser = argparse.ArgumentParser(description='QuantumRX QDB Debugger')
+parser = argparse.ArgumentParser(description='QDB Quantum Circuit Debugger')
 parser.add_argument('mode', type=str, help='(BENCHmark|DECompose|COMPare)')
 parser.add_argument('--circuit', type=str, nargs='*', help='Input Circuit .qasm')
 parser.add_argument('--arch', type=str, help='QC Architecture (Starmon-5|Spin-2)')
@@ -41,7 +41,7 @@ def progressBar (iteration, total, prefix = '', suffix = '', decimals = 1, lengt
 def success_rate(cDir):
     gate_errors={}
     try:
-        with open(args.arch+".csv", "r") as f:
+        with open("qdb_extra/"+args.arch+".csv", "r") as f:
             for entry in list(map(lambda x: x.split(), f.read().split("\n"))):
                 if(entry==[]):
                     break
@@ -153,7 +153,7 @@ def benchmark():
     write_string = ""
     for key,value in final_results.items():
         write_string = write_string + key + " " + str(value) + "\n"
-    with open(args.arch+".csv","wt") as f: 
+    with open("qdb_extra/"+args.arch+".csv","wt") as f: 
         n = f.write(write_string)
 
 def decompose():
@@ -168,7 +168,7 @@ def decompose():
     if(args.arch!=None):
         gate_errors = {}
         try:
-            with open(args.arch+".csv", "r") as f:
+            with open("qdb_extra/"+args.arch+".csv", "r") as f:
                 for entry in list(map(lambda x: x.split(), f.read().split("\n"))):
                     if(entry==[]):
                         break
@@ -217,7 +217,7 @@ def compare():
         exit(2)
     gate_errors={}
     try:
-        with open(args.arch+".csv", "r") as f:
+        with open("qdb_extra/"+args.arch+".csv", "r") as f:
             for entry in list(map(lambda x: x.split(), f.read().split("\n"))):
                 if(entry==[]):
                     break

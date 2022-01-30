@@ -1,3 +1,5 @@
+from getpass import getpass
+
 from quantuminspire.qiskit import QI
 from coreapi.auth import BasicAuthentication
 from quantuminspire.credentials import save_account
@@ -9,9 +11,9 @@ def get_authentication():
     """Gets the authentication for connecting to the
        Quantum Inspire API.
     """
-    print(‘Enter email:’)
+    print('Enter email:')
     email = input()
-    print(‘Enter password’)
+    print('Enter password')
     password = getpass()
     return email, password 
 
