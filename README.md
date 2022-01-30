@@ -18,37 +18,39 @@ Of these, the [4,2,2] code, and the bit- and phase-flip codes were benchmarked o
 
 We utilized a variety of circuits and measurements to estimate the probability of successfully executing each quantum gate used on Starmon-5. We first performed a measurement of the 0 state to approximate the success of a single measurement, which turned out to be around 94.9%. This very simple circuit can be found below. 
 
-
+![measurement](images/measurement.PNG)
 
     We then proceeded to evaluate the performance of each basic single qubit gate. For the basic cases of the X, Y gates we used the circuits found below
 
+![X](images/X.PNG) ![Y](images/Y.PNG)
 
 We wished to evaluate the fidelity of each gate independently of the measurement accuracy, so we calculated the desired fidelity as Accuracy of X Gate = (% of correct measurements)/(Standard Measurement Error), using the Standard Measurement Error (SME) that we calculated in our first step. For the purposes of our model, we considered the probability of both the gate and the measurement malfunctioning (and thus leading to a correct measurement result) to be negligible. 
 
 We then proceeded to test the Hadamard Gate, using the simple circuit given below. 
 
+![Hadamard](images/H.PNG)
 
 
 Here, it is a bit trickier to calculate the error resulting from the Hadamard Gate. Since the measurement error is the same independently of whether the + state collapses to 0 or 1, the measurement error is not involved in the result, i.e., we are observing the quality of the Hadamard directly.  Thus, we assumed that if p percent (0<p<1) of our measurement collapses to the 0 state, then the fidelity of our Hadamard is 2p-1. This result proved to be a successful approximation.
 
 For the Z gate, we used the following circuit. 
 
-
+![Z](images/Z.PNG)
 
 We once again divided the percentage of correct measurement results by the SME to obtain the fidelity of the Z gate. We also mathematically showed that the fidelity of the H gate needs not be taken into account, since small errors in the H gate will have very little effect to the measurement result. 
 
 A similar technique was used for the CZ gate, shown below:
 
-
+![CZ](images/CZ.PNG)
 
 Once again, the H gates need not be taken into consideration. However, in this case, we need to divide the experimentally measured probability of measuring the right result by F_X*SME^2, where F_X is the probability the X gate fails, and SME the standard measurement error (note that we are doing two measurements, hence the square). 
 
 Finally, the exact same correction, i.e., dividing by F_X*SME^2,  was used for the CNOT, SWAP gates, with the circuits shown below. 
 
+![CNOT](images/CX.PNG) ![swap](images/swap.PNG)
 
 
-
-Predicting Algorithm Success
+### Predicting Algorithm Success
 
 The process of predicting the success rate of a specific algorithm is incredibly straightforward. The user needs only pass the code producing their circuit as an argument to our code. Our algorithm will decompose the circuit and identify all types of gates, as well as how many times each gate appears. It then proceeds to predict the probability of the algorithm succeeding by multiplying the products of the form (Gate Fidelity)^(#appearences) for each type of gate. We end by multiplying our final result by SME^(#measurements), to account for the measurement errors in the circuit. The algorithm is able to estimate the success rate of any algorithm composed with our tested gates, and use it to decide what error correction code works best with Starmon-5. 
 
@@ -59,14 +61,19 @@ At first, we used Qiskit and automatically transpiling our code to address this 
 
 
 Quantum Circuit 1: Bit flip repetition code
+![bitflip](images/bitflip.png)
 
 Quantum Circuit 2: Phase flip repetition code
+![phaseflip](images/phaseflip)
 
 Quantum Circuit 3: Shor Code
+![Shor Code](images/shorcode.png)
 
 Quantum Circuit 4: Steane [[5,1,3]] Code
+![Steanefive](images/steanecode.png)
 
 Quantum Circuit 5: Steane [[7,1,3] Code
+![SteaneSeven](images/steane7code.png)
 
 
 
